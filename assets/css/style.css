@@ -123,6 +123,15 @@ header {
 .header-logo {
     width: 100px;
     padding: 10px 10px;
+    transition-duration: 100ms;
+}
+
+.header-logo:hover {
+    transform: scale(1.02);
+}
+
+.header-logo:active {
+    transform: scale(0.98);
 }
 
 .header-center {
