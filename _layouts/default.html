@@ -31,7 +31,10 @@
             href="/assets/css/codeblock.css?v={{ '/assets/css/codeblock.css' | file_mtime | date: '%s'}}"
         />
 
-        <title>cookisite real</title>
+        <title>
+            {% if page.title %} Cookisite! - {{ page.title }} {% else %}
+            Cookisite! {% endif %}
+        </title>
     </head>
     <body>
         <div id="everything">

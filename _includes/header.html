@@ -6,7 +6,9 @@
             onclick="randomHeader()"
         />
         <div class="header-title">
-            <h1>Cookisite!</h1>
+            <h1>
+                {% if page.title %}{{ page.title }}{% else %}Cookisite!{% endif %}
+            </h1>
             <p><span id="randomHeader"></span></p>
             <script src="/assets/js/randomtext.js"></script>
         </div>

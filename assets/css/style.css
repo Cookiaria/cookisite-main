@@ -30,8 +30,15 @@ body {
     font-weight: normal;
 }
 
+h1,
+h2,
+h3 {
+    font-weight: 600;
+    margin: 12px 0;
+}
+
 a {
-    color: var(--accent-color);
+    color: var(--text--color);
     text-decoration: none;
 }
 
@@ -97,7 +104,7 @@ header {
 .header-tabs {
     padding: 0 10px;
     margin: 0;
-    max-width: fit-content;
+    max-width: 1000px;
     margin-inline: auto;
 }
 
@@ -109,6 +116,7 @@ header {
     font-size: 16px;
     padding: 4px 12px;
     border-radius: 0 0 4px 4px;
+    color: var(--main-text-color);
 }
 
 .header-tabs a {
@@ -156,7 +164,7 @@ header {
 
 .main-stuff {
     max-width: 1024px;
-    padding: 20px 10px;
+    padding: 10px 10px;
     height: auto;
     margin-top: 16px;
     margin-inline: auto;
@@ -164,6 +172,36 @@ header {
     border-radius: 8px;
     border: color-mix(in srgb, var(--main-text-color) 20%, transparent 80%) 1px
         solid;
+}
+
+/* table */
+
+table {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+thead th:first-child {
+    border-top-left-radius: 6px;
+}
+
+thead th:last-child {
+    border-top-right-radius: 6px;
+}
+
+tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 6px;
+}
+
+tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 6px;
+}
+
+th,
+td {
+    padding: 10px;
+    border: 1px solid color-mix(in srgb, var(--main-text-color), transparent 50%);
+    text-align: left;
 }
 
 /*
