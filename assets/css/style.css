@@ -21,6 +21,25 @@
         transparent 50%,
         var(--background-color) 100%
     );
+
+    --rainbow-colors: linear-gradient(90deg,
+            #fe7e6f 0%,
+            #fec46f 7.14%,
+            #fffa6f 14.29%,
+            #ddff6f 21.43%,
+            #91ff6f 28.57%,
+            #6eff73 35.71%,
+            #6fffef 42.86%,
+            #6fffef 50%,
+            #6ea9fe 57.14%,
+            #6ea9fe 64.29%,
+            #6ea9fe 71.43%,
+            #dc6eff 78.57%,
+            #ff6efa 85.71%,
+            #fe6fc3 92.86%,
+            #fe7e6f 100%);
+
+    --rainbow-color-list: #fe7e6f, #fec46f, #fffa6f, #ddff6f, #91ff6f, #6eff73, #6fffef, #6ea9fe, #dc6eff, #ff6efa, #fe6fc3, #fe7e6f;
 }
 
 body {
@@ -61,6 +80,15 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    color: color-mix(
+        in srgb,
+        var(--accent-color) 50%,
+        var(--main-text-color) 50%
+    );
+    text-decoration: underline;
+}
+
 img {
     max-width: 100%;
     height: auto;
@@ -72,13 +100,25 @@ hr {
     opacity: 20%;
 }
 
-a:hover {
-    color: color-mix(
-        in srgb,
-        var(--accent-color) 50%,
-        var(--main-text-color) 50%
-    );
-    text-decoration: underline;
+.wavy span {
+    display: inline-block;
+}
+
+.rainbow span {
+    display: inline-block;
+}
+
+blockquote {
+    padding: 12px 32px 12px 16px;
+    margin: 0;
+    border-left: 4px solid var(--accent-color);
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.025);
+    width: fit-content;
+}
+
+blockquote > p {
+    margin: 0;
 }
 
 /*
@@ -359,4 +399,25 @@ td {
     background-clip: text;
     color: transparent;
     font-weight: 500;
+}
+
+/* crap from old ass version of the website */
+.rainbow-legacy {
+    background: var(--rainbow-colors);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: colormatic 1.5s linear infinite;
+    mix-blend-mode: screen;
+}
+
+@keyframes colormatic {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 200% 50%;
+    }
 }

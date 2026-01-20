@@ -50,23 +50,25 @@ public class Main {
 
 text fx
 
-<h2 class="ca-wavy">groovy...</h2>
+<h2 class="wavy">groovy...</h2>
 
-<h2 class="ca-rainbow">fruity</h2>
+<h2 class="rainbow">fruity</h2>
 
-<h2 class="ca-wavy ca-rainbow">this might be awesome?</h2>
+<h2 class="wavy rainbow">this might be awesome?</h2>
 
-<h2 class="ca-rainbow-legacy">legacy fruity</h2>
+<h2 class="rainbow-legacy">legacy fruity</h2>
 
 ---
 
-<p class="ca-wavy">smol wave</p>
+<p class="wavy">smol wave</p>
 
-<p class="ca-rainbow">smol fruity</p>
+<p class="rainbow">smol fruity</p>
 
-<p class="ca-wavy ca-rainbow">smol wavy fruity</p>
+<p class="wavy rainbow">smol wavy fruity</p>
 
-<p class="ca-rainbow-legacy">legacy smol fruity</p>
+<p class="rainbow-legacy">legacy smol fruity</p>
+
+<h1>duuudee text effects are back! <span class="rainbow wavy">FUCK</span> <span class="wavy">yea!</span></h1>
 
 ---
 
