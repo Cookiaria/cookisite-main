@@ -1,6 +1,6 @@
 services:
     cookisite:
-        build: https://github.com/Cookiaria/cookisite.git
+        build: https://github.com/Cookiaria/cookisite-main.git
         restart: no
         volumes:
-            - /home/ubuntu/cookisite:/srv/site
+            - ~/cookisite:/srv/site
