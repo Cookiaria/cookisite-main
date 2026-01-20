@@ -1,0 +1,8 @@
+permalink: pretty
+
+exclude:
+  - README.md
+  - Dockerfile
+  - compose.yaml
+  - start-jekyll-debug.sh
+  - start-jekyll-prod.sh
