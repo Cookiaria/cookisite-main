@@ -1,0 +1,6 @@
+services:
+    cookisite:
+        build: https://github.com/Cookiaria/cookisite.git
+        restart: no
+        volumes:
+            - /home/ubuntu/cookisite:/srv/site
