@@ -4,6 +4,8 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+        {% include fonts.html %}
+
         <!-- discord embed stuff !! !!!!! -->
         <meta property="og:title" content="Cookisite" />
         <meta
@@ -19,18 +21,23 @@
         <meta name="theme-color" content="#ff8866" />
 
         <!-- meta stuff idk -->
-        <link rel="icon" href="/todo" type="image/png" />
-        <!-- css bullshit here -->
+        <link rel="icon" href="/assets/favicon.ico" type="image/png" />
+        <link
+            rel="stylesheet"
+            href="/assets/css/style.css?v={{ '/assets/css/style.css' | file_mtime | date: '%s'}}"
+        />
 
         <title>cookisite real</title>
     </head>
     <body>
         <div id="everything">
-            <!-- header -->
+            {% include header.html %}
 
-            <div id="mainContent">{{ content }}</div>
+            <div id="csMain">{{ content }}</div>
 
             <!-- footer -->
         </div>
     </body>
+
+    <script src="/assets/js/randomtext.js" -></script>
 </html>
