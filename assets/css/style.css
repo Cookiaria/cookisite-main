@@ -47,14 +47,29 @@ h2 {
     font-size: 32px;
 }
 
+h3 {
+    font-size: 28px;
+}
+
 p {
-    font-size: 20px;
+    font-size: 18px;
     margin: 12px 0;
 }
 
 a {
-    color: var(--text--color);
+    color: var(--accent-color);
     text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+hr {
+    margin: 20px 0;
+    color: var(--main-text-color);
+    opacity: 20%;
 }
 
 a:hover {
@@ -63,6 +78,7 @@ a:hover {
         var(--accent-color) 50%,
         var(--main-text-color) 50%
     );
+    text-decoration: underline;
 }
 
 /*
@@ -101,6 +117,7 @@ header {
     padding-left: 2px;
     color: var(--main-text-color);
     height: 20px;
+    font-size: 16px;
 }
 
 .header-logo {
@@ -184,11 +201,12 @@ header {
     padding: 10px 10px;
     height: auto;
     margin-top: 16px;
+    padding-bottom: 24px;
+    margin-bottom: 32px;
     margin-inline: auto;
     background-color: var(--background-color);
     border-radius: 8px;
-    border: color-mix(in srgb, var(--main-text-color) 20%, transparent 80%) 1px
-        solid;
+    border: color-mix(in srgb, var(--main-text-color) 20%, transparent 80%) 1px solid;
 }
 
 /* table */
