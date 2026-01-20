@@ -32,12 +32,14 @@
     <body>
         <div id="everything">
             {% include header.html %}
+            <div class="main-stuff">{{ content }}</div>
 
-            <div id="csMain">{{ content }}</div>
-
-            <!-- footer -->
+            <div class="ca-background">
+                <div class="ca-backgroundimg"></div>
+                <div class="ca-backgroundoverlay"></div>
+            </div>
         </div>
     </body>
 
-    <script src="/assets/js/randomtext.js" -></script>
+    <script src="/assets/js/buttons.js"></script>
 </html>
