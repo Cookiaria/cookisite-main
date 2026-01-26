@@ -1,0 +1,225 @@
+/*
+====== generic button style ======
+*/
+
+:is(button, input[type="reset"], input[type="submit"]) {
+    color: var(--main-text-color);
+    border: none;
+    font-family: var(--main-font);
+    font-size: 16px;
+    cursor: pointer;
+    margin: 4px;
+    padding: 6px 8px;
+    border-radius: var(--bradius);
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--accent-color), rgba(0, 0, 0, 0.25) 75%) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    background-color: color-mix(
+        in srgb,
+        var(--accent-color),
+        rgba(255, 255, 255, 0.1) 90%
+    );
+    user-select: none;
+    transition-duration: 0.25s;
+}
+
+:is(button, input[type="reset"], input[type="submit"]):hover {
+    text-decoration: none;
+    color: color-mix(in srgb, var(--accent-color), white 80%);
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--accent-color), rgba(255, 255, 255, 0.25) 50%)
+            0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    background-color: color-mix(in srgb, var(--accent-color), rgb(0, 0, 0) 50%);
+}
+
+:is(button, input[type="reset"], input[type="submit"]):active {
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--accent-color), rgba(0, 0, 0, 0.25) 50%) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    background-color: color-mix(in srgb, var(--accent-color), rgb(0, 0, 0) 60%);
+}
+
+
+/*
+====== file input style ======
+*/
+
+input[type="file"] {
+    border: color-mix(in srgb, var(--main-text-color) 20%, transparent 80%) 1px
+        solid;
+    border-radius: var(--bradius);
+}
+
+input[type="file"]::file-selector-button {
+    color: var(--main-text-color);
+    cursor: pointer;
+    margin: 4px;
+    padding: 6px 8px;
+    border-radius: var(--bradius);
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--accent-color), rgba(0, 0, 0, 0.25) 75%) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    background-color: color-mix(
+        in srgb,
+        var(--accent-color),
+        rgba(255, 255, 255, 0.1) 90%
+    );
+    user-select: none;
+    transition-duration: 0.25s;
+    border: none;
+}
+
+input[type="file"]::file-selector-button:hover {
+    text-decoration: none;
+    color: color-mix(in srgb, var(--accent-color), white 80%);
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--accent-color), rgba(255, 255, 255, 0.25) 50%)
+            0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    background-color: color-mix(in srgb, var(--accent-color), rgb(0, 0, 0) 50%);
+}
+
+input[type="file"]::file-selector-button:active {
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--accent-color), rgba(0, 0, 0, 0.25) 50%) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    background-color: color-mix(in srgb, var(--accent-color), rgb(0, 0, 0) 60%);
+}
+
+/*
+====== input type=color ======
+*/
+
+input[type="color"] {
+    border: none;
+    border-radius: var(--bradius);
+    background-color: #724335;
+}
+
+/*
+====== input type=date ======
+i guess i could use this for datetime-local as well?
+*/
+
+input[type="date"],
+input[type="datetime-local"] {
+    border: color-mix(in srgb, var(--main-text-color) 20%, transparent 80%) 2px
+        solid;
+    border-radius: var(--bradius);
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--accent-color), rgba(0, 0, 0, 0.25) 75%) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    color: var(--main-text-color);
+    background-color: #724335;
+}
+
+input[type="date"]:focus {
+    outline: none;
+    border: var(--accent-color) 2px solid;
+}
+
+input[type="datetime-local"]:focus {
+    outline: none;
+    border: var(--accent-color) 2px solid;
+}
+
+/*
+====== input type=number ======
+*/
+
+input[type="number"] {
+    font-family: var(--main-font);
+    font-size: 14px;
+    width: 4rem;
+    border: color-mix(in srgb, var(--main-text-color) 20%, transparent 80%) 2px
+        solid;
+    border-radius: var(--bradius);
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--accent-color), rgba(0, 0, 0, 0.25) 75%) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    color: var(--main-text-color);
+    background-color: #724335;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border: var(--accent-color) 2px solid;
+}
+
+
+
+/*
+====== input type=range ======
+this one is different in firefox than on chrome for some reason??
+*/
+
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    width: 16rem;
+}
+
+input[type="range"]:focus {
+    outline: none;
+}
+
+/*
+chrome-specific
+*/
+
+input[type="range"]::-webkit-slider-runnable-track {
+    background-color: #724335;
+    border-radius: 0.5rem;
+    height: 0.5rem;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -4px;
+    background-color: var(--accent-color);
+    border-radius: 0.5rem;
+    height: 1rem;
+    width: 1rem;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+    outline: none;
+}
+
+/*
+firefox-specific stuff
+*/
+
+input[type="range"]::-moz-range-track {
+    background-color: #724335;
+    border-radius: 0.5rem;
+    height: 0.5rem;
+}
+
+input[type="range"]::-moz-range-thumb {
+    background-color: var(--accent-color);
+    border: none;
+    border-radius: 0.5rem;
+    height: 1rem;
+    width: 1rem;
+}

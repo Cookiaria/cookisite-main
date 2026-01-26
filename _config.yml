@@ -1,8 +1,8 @@
 permalink: pretty
+host: 0.0.0.0
 
 exclude:
-  - README.md
   - Dockerfile
   - compose.yaml
-  - start-jekyll-debug.sh
-  - start-jekyll-prod.sh
+  - .gitignore
+  - prettierrc

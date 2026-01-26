@@ -18,7 +18,7 @@ description: testing page
 
 page for testing almost all markdown crap and some css variables lmao
 
-<span class="ca-button">this is a test button</span> <span class="ca-button">this is a test button</span> <span class="ca-button">this is a test button</span> <span class="ca-button">this is a test button</span>
+<button>this is a test button</button> <button>this is a test button</button> <button>this is a test button</button> <button>this is a test button</button>
 
 ## human... i remember you're <span id="shaky" style="color:red;text-shadow: 0 0 24px red;">genocides.</span>
 
@@ -96,7 +96,7 @@ text fx
   - two!
   - three!
 - ready?
-- Miku Miku <i class="ca-rainbow" style="font-weight: bold;font-size:24px">BEEEEAAAM!~</i>
+- Miku Miku <i class="rainbow" style="font-weight: bold;font-size:24px">BEEEEAAAM!~</i>
 
 ## top 3 cheese
 
@@ -134,7 +134,7 @@ with my own syntax highlighting theme!
 
 also its just the currently supported langs
 
-funny <a class="ca-button" onclick="configButton(document);"> <img src="/assets/emotes/configNEAR.png" class="ca-emote"> config button</a> because i feel like it
+funny <button onclick="configButton(document);"> <img src="/assets/emotes/configNEAR.png" class="ca-emote"> config button</button> because i feel like it
 
 ```
 literally just normal text

@@ -1,0 +1,263 @@
+---
+layout: default
+title: MIDI to Hammer Time
+---
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://unpkg.com/@tonejs/midi"></script>
+
+<style>
+    .pls {
+        text-align: center;
+    }
+    #convertBtn {
+        margin: 20px 0;
+    }
+
+    #status {
+        white-space: pre-wrap;
+        font-family: var(--codeblock-font);
+    }
+</style>
+
+<div class="boxed">
+    <h2>MIDI to Hammer Time (bits & bops) converter!</h2>
+    <p>i couldn't come up with a better lol</p>
+    <hr>
+    <p>
+        Some stuff to keep in mind!
+        <img class="ca-emote" src="/assets/emotes/ralEtoBleh.png" /> if your
+        chart has more than ~1,000 nails, the game WILL lag.<br />
+        This is mostly intented for short melodies, not full-blown songs.
+    </p>
+    <p>
+        If you're looking to use your DAW (or whatever u use for editing midis,
+        lol) as a chart editor instead of the in-game one, please turn on
+        "single note mode" on, as that will just place a single nail if the
+        script detects a note.
+    </p>
+    <p>
+        This script only scans for the first MIDI channel, so make sure to
+        export your melody on the first channel! <img src="/assets/emotes/ralHi.png" class="ca-emote">
+    </p>
+</div>
+<br>
+<div class="boxed">
+    <h3>gimmie ur midi !!</h3>
+    <p>
+        Make sure no notes are overlapping, otherwise the level won't play and will give you an error.<br>
+        so no chords, sorry!
+    </p>
+    <input type="file" id="midiInput" accept=".mid,.midi" />
+    <div>
+        <br />
+        <input type="checkbox" id="singleMode" />
+        <label for="singleMode">single note mode (1 note = 1 nail)</label>
+    </div>
+    <hr />
+    <div>
+        <h3>BPM multiplier</h3>
+        <p>
+            does not affect playback speed, just how fast the nails go in-game
+        </p>
+        <input type="number" inputmode="numeric" id="bpmMultiplier" value="1.0" min="0.1" step="0.5" />
+    </div>
+    <hr />
+    <div>
+        <h3>Starting offset</h3>
+        <p>how long the hand takes to start placing down the nails, in beats</p>
+        <input type="number" inputmode="numeric" id="offset" value="8.0" step="1" />
+    </div>
+    <hr />
+    <div>
+        <h3>End padding</h3>
+        <p>
+            how long the hammer takes to hit the nails after the hand is done,
+            in beats
+        </p>
+        <input type="number" inputmode="numeric" id="padding" value="8.0" step="1" />
+        <hr>
+    </div>
+    <button id="convertBtn">convert & save!</button>
+    <p>Status:</p>
+    <div id="status" class="code-block">Waiting for ur midi!</div>
+</div>
+<br />
+
+<script>
+    const midiInput = document.getElementById("midiInput");
+    const convertBtn = document.getElementById("convertBtn");
+    const status = document.getElementById("status");
+
+    function midiNoteToFrequency(note) {
+        return 440.0 * Math.pow(2.0, (note - 69) / 12.0);
+    }
+
+    convertBtn.addEventListener("click", async () => {
+        if (!midiInput.files.length) {
+            alert("Please select a MIDI file first.");
+            return;
+        }
+
+        const file = midiInput.files[0];
+        const reader = new FileReader();
+
+        status.textContent = "Reading MIDI...";
+        convertBtn.disabled = true;
+
+        reader.onload = async (e) => {
+            try {
+                const midi = new Midi(e.target.result);
+
+                const initialBpm =
+                    midi.header.tempos.length > 0
+                        ? midi.header.tempos[0].bpm
+                        : 120;
+                const bpmMultiplier =
+                    parseFloat(
+                        document.getElementById("bpmMultiplier").value,
+                    ) || 1.0;
+                const bopBpm = initialBpm * bpmMultiplier;
+
+                const beatsPerSecond = bopBpm / 60.0;
+                const globalOffset =
+                    parseFloat(document.getElementById("offset").value) || 0;
+                const intervalPadding =
+                    parseFloat(document.getElementById("padding").value) || 0;
+                const singleMode =
+                    document.getElementById("singleMode").checked;
+                const nailLength = 6.0; //i dont think this rlly matters
+
+                status.textContent = `Parsed MIDI. BPM: ${initialBpm.toFixed(2)} -> Chart BPM: ${bopBpm.toFixed(2)}\nProcessing notes...`;
+
+                const outputData = {
+                    bopVersion: 4,
+                    bpm: bopBpm,
+                    beat0Offset: 0.0,
+                    musicVolume: 1.0,
+                    entities: [],
+                    bpmChanges: [],
+                    steamMetadata: null,
+                    name: file.name.replace(/\.[^/.]+$/, ""),
+                    description: `generated with cookiaria's MIDI converter!`,
+                    charter: "",
+                    charter_link: "",
+                    artist: "",
+                    artist_link: "",
+                };
+
+                // stop!
+                outputData.entities.push({
+                    type: "gameManager/switchGame/hammerTime",
+                    beat: 0.0,
+                    length: 0.5,
+                    track: 0,
+                    properties: {},
+                });
+
+                let maxBeatReached = 0.0;
+                let nailCount = 0;
+
+                const allNotes = [];
+                midi.tracks.forEach((track) => {
+                    track.notes.forEach((note) => {
+                        allNotes.push(note);
+                    });
+                });
+
+                // sort notes by seconds
+                allNotes.sort((a, b) => a.time - b.time);
+
+                allNotes.forEach((note) => {
+                    const startSec = note.time;
+                    const endSec = note.time + note.duration;
+
+                    const startBeatBop = startSec * beatsPerSecond;
+                    const endBeatBop = endSec * beatsPerSecond;
+
+                    if (singleMode) {
+                        const finalBeat = Number(
+                            (startBeatBop + globalOffset).toFixed(6),
+                        );
+                        outputData.entities.push({
+                            type: "hammerTime/nail",
+                            beat: finalBeat,
+                            length: nailLength,
+                            track: 1,
+                            properties: {},
+                        });
+                        nailCount++;
+                        if (finalBeat > maxBeatReached)
+                            maxBeatReached = finalBeat;
+                    } else {
+                        const freqHz = midiNoteToFrequency(note.midi);
+                        const beatGap =
+                            freqHz > 0 ? beatsPerSecond / freqHz : 1.0;
+
+                        let currentPos = startBeatBop;
+                        while (currentPos < endBeatBop) {
+                            const finalBeat = Number(
+                                (currentPos + globalOffset).toFixed(6),
+                            );
+                            outputData.entities.push({
+                                type: "hammerTime/nail",
+                                beat: finalBeat,
+                                length: nailLength,
+                                track: 1,
+                                properties: {},
+                            });
+                            nailCount++;
+                            if (finalBeat > maxBeatReached)
+                                maxBeatReached = finalBeat;
+                            currentPos += beatGap;
+                        }
+                    }
+                });
+
+                // Sort entities by beat
+                const header = outputData.entities.shift();
+                outputData.entities.sort((a, b) => a.beat - b.beat);
+                outputData.entities.unshift(header);
+
+                // Add Start Interval
+                let intervalLength = Number(
+                    (maxBeatReached + intervalPadding).toFixed(6),
+                );
+                if (intervalLength < globalOffset)
+                    intervalLength = globalOffset + intervalPadding;
+
+                outputData.entities.splice(1, 0, {
+                    type: "hammerTime/start interval",
+                    beat: globalOffset,
+                    length: intervalLength,
+                    track: 9,
+                    properties: {},
+                });
+
+                // ZIP it up
+                status.textContent += `\nGenerated ${nailCount} nails!\nCreating .bop file...`;
+
+                const zip = new JSZip();
+                zip.file("mixtape.json", JSON.stringify(outputData, null, 4));
+
+                const content = await zip.generateAsync({ type: "blob" });
+                const fileName = file.name.replace(/\.[^/.]+$/, "") + ".bop";
+
+                // Trigger Download
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(content);
+                link.download = fileName;
+                link.click();
+
+                status.textContent += `\nDone! Saved as ${fileName}`;
+            } catch (err) {
+                console.error(err);
+                status.textContent = "Error: " + err.message;
+            } finally {
+                convertBtn.disabled = false;
+            }
+        };
+
+        reader.readAsArrayBuffer(file);
+    });
+</script>

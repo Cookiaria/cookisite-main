@@ -8,6 +8,7 @@
     --codeblock-font: "Ubuntu Mono", monospace;
 
     --border-size: 3px;
+    --bradius: 6px;
 
     --header-image: var(--background-color) url(/assets/images/stars.png) no-repeat center top;
 
@@ -335,50 +336,6 @@ td {
 }
 
 /*
-====== styles for buttons ======
-*/
-
-.ca-button {
-    cursor: pointer;
-    margin: 4px;
-    padding: 6px 8px;
-    border-radius: 6px;
-    background: linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--accent-color), rgba(0, 0, 0, 0.25) 75%) 0%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    background-color: color-mix(
-        in srgb,
-        var(--accent-color),
-        rgba(255, 255, 255, 0.1) 90%
-    );
-    user-select: none;
-    transition-duration: 0.25s;
-}
-
-.ca-button:hover {
-    text-decoration: none;
-    color: color-mix(in srgb, var(--accent-color), white 80%);
-    background: linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--accent-color), rgba(255, 255, 255, 0.25) 50%)
-            0%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    background-color: color-mix(in srgb, var(--accent-color), rgb(0, 0, 0) 50%);
-}
-
-.ca-button:active {
-    background: linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--accent-color), rgba(0, 0, 0, 0.25) 50%) 0%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    background-color: color-mix(in srgb, var(--accent-color), rgb(0, 0, 0) 60%);
-}
-
-/*
 ====== misc. ======
 */
 
@@ -387,6 +344,14 @@ td {
     width: auto;
     object-fit: contain;
     margin: -0.45em 0;
+}
+
+.boxed {
+    width: 75%;
+    border: color-mix(in srgb, var(--main-text-color) 20%, transparent 80%) 1px solid;
+    padding: 10px 20px;
+    margin-inline: auto;
+    border-radius: var(--bradius);
 }
 
 /* i'm the original
