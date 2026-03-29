@@ -91,7 +91,7 @@ title: MIDI to Hammer Time
 </div>
 
 <script>
-    const midiInput = document.getElementById("midiInput");
+const midiInput = document.getElementById("midiInput");
     const convertBtn = document.getElementById("convertBtn");
     const status = document.getElementById("status");
 
@@ -239,6 +239,25 @@ title: MIDI to Hammer Time
                     track: 9,
                     properties: {},
                 });
+
+                // Final check to remove duplicates with exact same beat values
+                const uniqueEntities = [];
+                let duplicateCount = 0;
+                for (let i = 0; i < outputData.entities.length; i++) {
+                    const current = outputData.entities[i];
+                    if (i > 0 && current.beat === outputData.entities[i - 1].beat) {
+                        duplicateCount++;
+                        // If it's a nail, we decrement our earlier nail count
+                        if (current.type === "hammerTime/nail") nailCount--;
+                        continue;
+                    }
+                    uniqueEntities.push(current);
+                }
+                outputData.entities = uniqueEntities;
+
+                if (duplicateCount > 0) {
+                    status.textContent += `\nRemoved ${duplicateCount} duplicate notes with overlapping beats.`;
+                }
 
                 // ZIP it up
                 status.textContent += `\nGenerated ${nailCount} nails!\nCreating .bop file...`;
