@@ -1,6 +1,9 @@
 services:
     cookisite:
         build: https://github.com/Cookiaria/cookisite-main.git
-        restart: no
+        restart: unless-stopped
+        environment:
+            REPO_URL: https://github.com/Cookiaria/cookisite-main.git
+            UPDATE_INTERVAL: "1800"
         volumes:
             - ~/cookisite:/srv/site

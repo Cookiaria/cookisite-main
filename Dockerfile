@@ -5,8 +5,8 @@ RUN apt-get update && apt-get install -y ruby-full build-essential zlib1g-dev gi
 
 RUN gem install bundler jekyll
 
-COPY . /cookisite-src
+COPY docker/update-site.sh /usr/local/bin/update-site.sh
 
 WORKDIR /cookisite-src
 
-CMD ["jekyll", "build", "--source", "/cookisite-src", "--destination", "/srv/site"]
+CMD ["sh", "/usr/local/bin/update-site.sh"]

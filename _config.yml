@@ -4,5 +4,6 @@ host: 0.0.0.0
 exclude:
   - Dockerfile
   - compose.yaml
+  - docker
   - .gitignore
   - prettierrc
