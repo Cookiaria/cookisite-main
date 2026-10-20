@@ -11,6 +11,7 @@
     --bradius: 6px;
 
     --header-image: var(--background-color) url(/assets/images/stars.png) no-repeat center top;
+    --footer-image: var(--background-color) url(/assets/images/stars-footer.png) no-repeat center top;
 
     --background-color: color-mix(in srgb, var(--accent-color), black 80%);
     --background-tile: url(/assets/images/tiles/cattile_dark.png);
@@ -122,6 +123,13 @@ blockquote > p {
     margin: 0;
 }
 
+#everything {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
 /*
 ====== header stuff ======
 */
@@ -182,6 +190,38 @@ header {
 }
 
 /*
+====== footer ======
+*/
+
+footer {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 15px;
+    margin-top: auto;
+    border-top: var(--accent-color) var(--border-size) solid;
+    background: var(--footer-image);
+    background-size: 100%;
+    background-position-y: 57%;
+}
+
+.ca-footer-links {
+    color: white;
+    font-size: 2rem;
+}
+
+.ca-footer-links:hover > a {
+    text-decoration: none;
+}
+
+footer > p {
+    font-size: 1.0em;
+}
+
+.ca-footer-buttons {
+    image-rendering: pixelated;
+}
+
+/*
 ====== tabs ======
 */
 
@@ -190,6 +230,7 @@ header {
     margin: 0;
     max-width: 1000px;
     margin-inline: auto;
+    width: calc(100% - 20px);
 }
 
 .header-tabs a {
@@ -250,6 +291,8 @@ header {
     max-width: 1024px;
     padding: 10px 10px;
     height: auto;
+    width: calc(100% - 22px);
+    flex-grow: 1;
     margin-top: 16px;
     padding-bottom: 24px;
     margin-bottom: 32px;
